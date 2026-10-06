@@ -1,10 +1,10 @@
-name: Laravel CI - lession 1
+name: Laravel CI
 
 on:
   push:
 
 jobs:
-  # hello:
+  # lesson1-hello:
   #   runs-on: ubuntu-latest
 
     # steps:
@@ -23,15 +23,40 @@ jobs:
     #   - name: Show Composer version
     #     run: composer --version
 
-  checkout-code:
+  # lesson2-checkout-code:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Show files before checkout
+  #       run: ls -la
+
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Show files after checkout
+  #       run: ls -la
+  lesson3-setup-php-composer-and-run-laravel:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Show files before checkout
-        run: ls -la
-
-      - name: Checkout repository
+      - name: checkout repository
         uses: actions/checkout@v4
+      
+      - name: Setup PHP action
+        uses: shivammathur/setup-php@2.37.2
+        with: 
+          php-version: '8.3'
+          tools: composer:v2
+      
+      - name: show php version
+        run: php -v
+      
+      - name: show composer version
+        run: composer --version
+      
+      - name: install dependencies
+        run: composer install --no-interaction --prefer-dist
 
-      - name: Show files after checkout
-        run: ls -la
+      - name: show laravel version
+        run: php artisan --version
+  

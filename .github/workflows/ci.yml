@@ -59,4 +59,13 @@ jobs:
 
       - name: show laravel version
         run: php artisan --version
+
+      - name: create .env files
+        run: cp .env.example .env
+      
+      - name: generate app key
+        run: php artisan key:generate
+      
+      - name: run test
+        run: php artisan test
   

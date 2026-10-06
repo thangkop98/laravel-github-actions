@@ -4,8 +4,8 @@ on:
   push:
 
 jobs:
-  hello:
-    runs-on: ubuntu-latest
+  # hello:
+  #   runs-on: ubuntu-latest
 
     # steps:
     #   - name: Say hello

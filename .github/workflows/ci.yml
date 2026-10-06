@@ -37,44 +37,53 @@ jobs:
   #       run: ls -la
   lesson3-setup-php-composer-and-run-laravel:
     runs-on: ubuntu-latest
-    
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: laravel_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     env:
       APP_ENV: testing
-      DB_CONNECTION: sqlite
-      DB_DATABASE: ":memory:"
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: laravel_test
+      DB_USERNAME: root
+      DB_PASSWORD: root
 
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Setup PHP action
-        uses: shivammathur/setup-php@2.37.2
-        with: 
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
           php-version: '8.3'
-          extensions: sqlite, pdo_sqlite
+          extensions: pdo_mysql
           tools: composer:v2
-      
-      - name: show php version
-        run: php -v
-      
-      - name: show composer version
-        run: composer --version
-      
-      - name: install dependencies
+
+      - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: show laravel version
-        run: php artisan --version
-
-      - name: create .env files
+      - name: Create env file
         run: cp .env.example .env
-      
-      - name: generate app key
+
+      - name: Generate app key
         run: php artisan key:generate
-      
+
       - name: Run migrations
         run: php artisan migrate --force
 
-      - name: run test
+      - name: Run tests
         run: php artisan test
   

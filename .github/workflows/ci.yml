@@ -7,18 +7,31 @@ jobs:
   hello:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Say hello
-        run: echo "Hello Github Actions"
+    # steps:
+    #   - name: Say hello
+    #     run: echo "Hello Github Actions"
       
-      - name: Show current directory
-        run: pwd
+    #   - name: Show current directory
+    #     run: pwd
 
-      - name: List files
+    #   - name: List files
+    #     run: ls -la
+      
+    #   - name: Show PHP version
+    #     run: php -v
+      
+    #   - name: Show Composer version
+    #     run: composer --version
+
+  checkout-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show files before checkout
         run: ls -la
-      
-      - name: Show PHP version
-        run: php -v
-      
-      - name: Show Composer version
-        run: composer --version
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show files after checkout
+        run: ls -la

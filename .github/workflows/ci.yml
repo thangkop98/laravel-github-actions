@@ -16,3 +16,9 @@ jobs:
 
       - name: List files
         run: ls -la
+      
+      - name: Show PHP version
+        run: php -v
+      
+      - name: Show Composer version
+        run: composer --version

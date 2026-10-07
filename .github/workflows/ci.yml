@@ -4,8 +4,12 @@ on:
   push:
     branches:
       - main
+<<<<<<< HEAD
       - develop
 
+=======
+  
+>>>>>>> 3b0c7b3 (Add rule trigger github action workflow)
   pull_request:
     branches:
       - main

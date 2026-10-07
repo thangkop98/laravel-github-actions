@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - develop
-  
+
   pull_request:
     branches:
       - main
@@ -16,21 +16,21 @@ jobs:
   # lesson1-hello:
   #   runs-on: ubuntu-latest
 
-    # steps:
-    #   - name: Say hello
-    #     run: echo "Hello Github Actions"
-      
-    #   - name: Show current directory
-    #     run: pwd
+  # steps:
+  #   - name: Say hello
+  #     run: echo "Hello Github Actions"
 
-    #   - name: List files
-    #     run: ls -la
-      
-    #   - name: Show PHP version
-    #     run: php -v
-      
-    #   - name: Show Composer version
-    #     run: composer --version
+  #   - name: Show current directory
+  #     run: pwd
+
+  #   - name: List files
+  #     run: ls -la
+
+  #   - name: Show PHP version
+  #     run: php -v
+
+  #   - name: Show Composer version
+  #     run: composer --version
 
   # lesson2-checkout-code:
   #   runs-on: ubuntu-latest
@@ -77,7 +77,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: "8.3"
           # extensions: pdo_mysql
           tools: composer:v2
 
@@ -95,7 +95,13 @@ jobs:
 
       - name: Run tests
         run: php artisan test
-  
+
+      - name: Debug GitHub context
+        run: |
+          echo "ref=${{ github.ref }}"
+          echo "event=${{ github.event_name }}"
+          echo "ref_name=${{ github.ref_name }}"
+
   deploy:
     runs-on: ubuntu-latest
 
